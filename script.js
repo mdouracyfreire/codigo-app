@@ -12,7 +12,6 @@ function adicionarTarefa() {
   }
   else {
     tarefa.push(campoTarefa.value);
-    console.log(tarefa);
     campoTarefa.value = "";
     listarTarefa();
   }
@@ -30,7 +29,14 @@ function listarTarefa() {
     let textoTarefa = document.createElement("p");
     textoTarefa.appendChild(document.createTextNode(item));
 
+    let botaoRemover = document.createElement("button");
+    botaoRemover.classList.add("btn-remover");
+    let icone = document.createElement("img");
+    icone.setAttribute("src", "./imagem/lixeira.svg");
+    botaoRemover.appendChild(icone);
+
     novaTarefa.appendChild(textoTarefa);
+    novaTarefa.appendChild(botaoRemover);
     listaDeTarefas.appendChild(novaTarefa);
   });
 }
