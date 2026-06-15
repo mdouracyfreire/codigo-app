@@ -2,14 +2,12 @@ let campoTarefa = document.querySelector(".adicionar-tarefa input");
 let botaoAdicionar = document.querySelector(".adicionar-tarefa button");
 let listaDeTarefas = document.querySelector(".listar-tarefa");
 
-/** Atualiza a lista de tarefa com base no LocalStorage **/
 let tarefa = JSON.parse(localStorage.getItem("@listaTarefas")) || [];
-/** ----------------------------- **/
 
 botaoAdicionar.onclick = adicionarTarefa;
 
 function adicionarTarefa() {
-  if (campoTarefa.value === "") {
+  if (!!!campoTarefa.value.trim()) {
     alert("Você não digitou uma tarefa");
     return false;
   } else {
@@ -17,9 +15,7 @@ function adicionarTarefa() {
     campoTarefa.value = "";
     listarTarefa();
 
-    /** Adicionar o LocalStorage **/
     salvarDados();
-    /** ----------------------------- **/
   }
 }
 
@@ -27,9 +23,7 @@ function removerTarefa(posicao) {
   tarefa.splice(posicao, 1);
   listarTarefa();
 
-  /** Adicionar o LocalStorage **/
   salvarDados();
-  /** ----------------------------- **/
 }
 
 function listarTarefa() {
@@ -58,12 +52,8 @@ function listarTarefa() {
   });
 }
 
-/** Exibindo as tarefas **/
 listarTarefa();
-/** ----------------------------- **/
 
-/** Adicionando o LocalStorage **/
 function salvarDados() {
   localStorage.setItem("@listaTarefas", JSON.stringify(tarefa));
 }
-/** ----------------------------- **/
