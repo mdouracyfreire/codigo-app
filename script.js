@@ -2,7 +2,7 @@ let campoTarefa = document.querySelector(".adicionar-tarefa input");
 let botaoAdicionar = document.querySelector(".adicionar-tarefa button");
 let listaDeTarefas = document.querySelector(".listar-tarefa");
 
-/** Adicionar o LocalStorage **/
+/** Atualiza a lista de tarefa com base no LocalStorage **/
 let tarefa = JSON.parse(localStorage.getItem("@listaTarefas")) || [];
 /** ----------------------------- **/
 
