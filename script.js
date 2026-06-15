@@ -1,28 +1,41 @@
 let campoTarefa = document.querySelector(".adicionar-tarefa input");
 let botaoAdicionar = document.querySelector(".adicionar-tarefa button");
 let listaDeTarefas = document.querySelector(".listar-tarefa");
-let tarefa = [];
+
+/** Adicionar o LocalStorage **/
+let tarefa = JSON.parse(localStorage.getItem("@listaTarefas")) || [];
+/** ----------------------------- **/
 
 botaoAdicionar.onclick = adicionarTarefa;
 
 function adicionarTarefa() {
-  if(campoTarefa.value === "") {
+  if (campoTarefa.value === "") {
     alert("Você não digitou uma tarefa");
     return false;
-  }
-  else {
+  } else {
     tarefa.push(campoTarefa.value);
     campoTarefa.value = "";
     listarTarefa();
+
+    /** Adicionar o LocalStorage **/
+    salvarDados();
+    /** ----------------------------- **/
   }
 }
 
-function removerTarefa() {}
+function removerTarefa(posicao) {
+  tarefa.splice(posicao, 1);
+  listarTarefa();
+
+  /** Adicionar o LocalStorage **/
+  salvarDados();
+  /** ----------------------------- **/
+}
 
 function listarTarefa() {
   listaDeTarefas.innerHTML = "";
 
-  tarefa.map(item => {
+  tarefa.map((item) => {
     let novaTarefa = document.createElement("div");
     novaTarefa.classList.add("tarefa");
 
@@ -34,9 +47,23 @@ function listarTarefa() {
     let icone = document.createElement("img");
     icone.setAttribute("src", "./imagem/lixeira.svg");
     botaoRemover.appendChild(icone);
+    botaoRemover.setAttribute(
+      "onclick",
+      `removerTarefa(${tarefa.indexOf(item)})`,
+    );
 
     novaTarefa.appendChild(textoTarefa);
     novaTarefa.appendChild(botaoRemover);
     listaDeTarefas.appendChild(novaTarefa);
   });
 }
+
+/** Exibindo as tarefas **/
+listarTarefa();
+/** ----------------------------- **/
+
+/** Adicionando o LocalStorage **/
+function salvarDados() {
+  localStorage.setItem("@listaTarefas", JSON.stringify(tarefa));
+}
+/** ----------------------------- **/
